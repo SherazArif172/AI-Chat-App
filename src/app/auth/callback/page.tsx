@@ -29,7 +29,20 @@ export default function AuthCallback() {
       }
     }
 
-    handleAuthCallback()
+    const handleUrlFragment = () => {
+      if (window.location.hash) {
+        const hash = window.location.hash.substring(1)
+        const params = new URLSearchParams(hash)
+        
+        if (params.get('access_token')) {
+          handleAuthCallback()
+        }
+      } else {
+        handleAuthCallback()
+      }
+    }
+
+    handleUrlFragment()
   }, [router])
 
   return (
